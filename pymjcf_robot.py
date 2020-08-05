@@ -107,8 +107,44 @@ class Robot(object):
             f.write(self.mjcf_model.to_xml_string())
 
 
+class Gripper:
+    def __init__(self, name='gripper'):
+        self.mjcf_model = mjcf.RootElement(model=name)
+
+        base = Box(lx=0.15, ly=0.05, lz=0.05, color='yellow')
+        finger = Box(lx=0.1, ly=0.05, lz=0.01, color='yellow')
+
+        self.base = self.mjcf_model.worldbody.add('body', name='base')
+        self.base.add('geom',
+                      name='base',
+                      type=base.type,
+                      pos=[0, 0, 0],
+                      size=base.size,
+                      rgba=base.rgba)
+
+        self.finger_left = self.base.add('body', name='finger_left')
+        self.finger_left.add('geom',
+                             name='finger_left',
+                             type=finger.type,
+                             pos=[base.lx * (2/3), 0, base.lz + finger.m_lz],
+                             size=finger.size,
+                             rgba=finger.rgba)
+
+        self.finger_right = self.base.add('body', name='finger_right')
+        self.finger_right.add('geom',
+                              name='finger_right',
+                              type=finger.type,
+                              pos=[base.lx * (2/3), 0, base.lz + finger.m_lz],
+                              size=finger.size,
+                              rgba=finger.rgba)
+
+    def save_model(self, filename):
+        with open(filename, 'w') as f:
+            f.write(self.mjcf_model.to_xml_string())
+
 robot = Robot(name='robot')
+gripper = Gripper(name='gripper')
 
 robot.save_model('robot.xml')
-
+gripper.save_model('gripper.xml')
 # physics = mjcf.Physics.from_mjcf_model(body.mjcf_model)
