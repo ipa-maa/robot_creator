@@ -58,7 +58,8 @@ class Robot(object):
                               name='forearm_link',
                               type=forearm_link.type,
                               pos=[0, 0.176 - 0.137 + 0.135, base.l + shoulder_link.l + upper_arm_link.l + forearm_link.m_l],
-                              size=forearm_link.size)
+                              size=forearm_link.size,
+                              rgba=forearm_link.rgba)
         self.forearm_link.add('joint',
                               name='robot:joint3',
                               type='hinge',
@@ -71,7 +72,8 @@ class Robot(object):
                             type=wrist_link.type,
                             quat=[-1, 1, 0, 0],
                             pos=[0, 0.176 - 0.137 + 0.135 + 0.117, base.l + shoulder_link.l + upper_arm_link.l + forearm_link.l + wrist_link.m_l],
-                            size=wrist_link.size)
+                            size=wrist_link.size,
+                            rgba=wrist_link.rgba)
         self.wrist_link.add('joint',
                             name='robot:joint4',
                             type='hinge',
