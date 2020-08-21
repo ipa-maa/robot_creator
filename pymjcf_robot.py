@@ -52,6 +52,11 @@ class Robot(object):
 
         self.base = self.mjcf_model.worldbody.add('body', name='base')
         base = Cylinder(r=0.2, l=0.3, color='red')
+        self.base.add('joint',
+                      name='robot:joint0',
+                      type='hinge',
+                      pos=[0, 0, 0 + base.m_l],
+                      axis=[0, 0, 1])
         self.base.add('geom',
                       name='base',
                       type=base.type,
@@ -64,8 +69,8 @@ class Robot(object):
         self.shoulder_link.add('joint',
                                name='robot:joint1',
                                type='hinge',
-                               pos=[0, base.r, base.l + shoulder_link.m_l],
-                               axis=[0, 0, 1])
+                               pos=[0, base.r, base.l],
+                               axis=[0, 1, 0])
         self.shoulder_link.add('geom',
                                name='shoulder_link',
                                type=shoulder_link.type,
@@ -126,21 +131,40 @@ class Gripper:
         self.finger_left.add('geom',
                              name='finger_left',
                              type=finger.type,
-                             pos=[base.lx * (2/3), 0, base.lz + finger.m_lz],
+                             quat=[1, 0, -1, 0],
+                             pos=[base.m_lx * (2/3), 0, base.m_lz + finger.m_lx],
                              size=finger.size,
                              rgba=finger.rgba)
+        self.finger_left.add('joint',
+                             name='gripper:joint_left',
+                             type='slide',
+                             pos=[0, 0, base.m_lz],
+                             axis=[1, 0, 0],
+                             limited='True',
+                             range=[-base.m_lx * (2/3) + finger.m_lz, 0.],
+                             damping=1)
 
         self.finger_right = self.base.add('body', name='finger_right')
         self.finger_right.add('geom',
                               name='finger_right',
                               type=finger.type,
-                              pos=[base.lx * (2/3), 0, base.lz + finger.m_lz],
+                              quat=[1, 0, 1, 0],
+                              pos=[- base.m_lx * (2/3), 0, base.m_lz + finger.m_lx],
                               size=finger.size,
                               rgba=finger.rgba)
+        self.finger_right.add('joint',
+                              name='gripper:joint_right',
+                              type='slide',
+                              pos=[0, 0, base.m_lz],
+                              axis=[1, 0, 0],                            
+                              limited='True',
+                              range=[0., base.m_lx * (2/3) - finger.m_lz],
+                              damping=1)
 
     def save_model(self, filename):
         with open(filename, 'w') as f:
             f.write(self.mjcf_model.to_xml_string())
+
 
 robot = Robot(name='robot')
 gripper = Gripper(name='gripper')
