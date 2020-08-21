@@ -161,7 +161,7 @@ class Gripper:
                              size=finger.size,
                              rgba=finger.rgba)
         self.finger_left.add('joint',
-                             name='gripper:joint_left',
+                             name='joint_left',
                              type='slide',
                              pos=[0, 0, base.m_lz],
                              axis=[1, 0, 0],
@@ -178,7 +178,7 @@ class Gripper:
                               size=finger.size,
                               rgba=finger.rgba)
         self.finger_right.add('joint',
-                              name='gripper:joint_right',
+                              name='joint_right',
                               type='slide',
                               pos=[0, 0, base.m_lz],
                               axis=[1, 0, 0],
@@ -196,6 +196,3 @@ gripper = Gripper(name='gripper')
 
 robot.save_model('robot.xml')
 gripper.save_model('gripper.xml')
-# physics = mjcf.Physics.from_mjcf_model(body.mjcf_model)
-
-# %%
