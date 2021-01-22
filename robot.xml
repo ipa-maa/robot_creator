@@ -1,0 +1,42 @@
+<mujoco model="robot">
+  <default>
+    <default class="/"/>
+    <default class="gripper/"/>
+  </default>
+  <worldbody>
+    <body name="base">
+      <joint name="robot:joint0" class="/" type="hinge" pos="0 0 0.090499999999999997" axis="0 0 1"/>
+      <geom name="base" class="/" type="cylinder" size="0.10000000000000001 0.090499999999999997" rgba="1 0 0 0.29999999999999999" pos="0 0 0.090499999999999997"/>
+      <body name="shoulder_link">
+        <geom name="shoulder_link" class="/" type="cylinder" size="0.074999999999999997 0.30649999999999999" rgba="1 1 1 0.29999999999999999" pos="0 0.17599999999999999 0.48749999999999999"/>
+        <joint name="robot:joint1" class="/" type="hinge" pos="0 0.17599999999999999 0.18099999999999999" axis="0 1 0"/>
+        <body name="upper_arm_link">
+          <geom name="upper_arm_link" class="/" type="cylinder" size="0.074999999999999997 0.28549999999999998" rgba="1 1 1 0.29999999999999999" pos="0 0.038999999999999979 1.0794999999999999"/>
+          <joint name="robot:joint2" class="/" type="hinge" pos="0 0.038999999999999979 0.79400000000000004" axis="0 1 0"/>
+          <body name="forearm_link">
+            <geom name="forearm_link" class="/" type="cylinder" size="0.050000000000000003 0.059999999999999998" rgba="1 1 1 0.29999999999999999" pos="0 0.17399999999999999 1.425"/>
+            <joint name="robot:joint3" class="/" type="hinge" pos="0 0.17399999999999999 1.365" axis="0 1 0"/>
+            <body name="wrist_link">
+              <geom name="wrist_link" class="/" type="cylinder" size="0.050000000000000003 0.058500000000000003" rgba="1 1 1 0.29999999999999999" pos="0 0.29099999999999998 1.5434999999999999" quat="-1 1 0 0"/>
+              <joint name="robot:joint4" class="/" type="hinge" pos="0 0.17399999999999999 1.4849999999999999"/>
+              <site name="wrist_link_site" class="/" pos="0 0.37461699999999998 1.5349999999999999" quat="-1 1 0 0"/>
+              <body pos="0 0.37461699999999998 1.5349999999999999" quat="-1 1 0 0" name="gripper/">
+                <body name="gripper/base">
+                  <geom name="gripper/base" class="gripper/" type="box" size="0.074999999999999997 0.025000000000000001 0.025000000000000001" rgba="1 1 0 0.29999999999999999" pos="0 0 0"/>
+                  <body name="gripper/finger_left">
+                    <geom name="gripper/finger_left" class="gripper/" type="box" size="0.050000000000000003 0.025000000000000001 0.0050000000000000001" rgba="1 1 0 0.29999999999999999" pos="0.049999999999999996 0 0.075000000000000011" quat="1 0 -1 0"/>
+                    <joint name="gripper/joint_left" class="gripper/" type="slide" pos="0 0 0.025000000000000001" axis="1 0 0" limited="true" range="-0.044999999999999998 0" damping="1.0"/>
+                  </body>
+                  <body name="gripper/finger_right">
+                    <geom name="gripper/finger_right" class="gripper/" type="box" size="0.050000000000000003 0.025000000000000001 0.0050000000000000001" rgba="1 1 0 0.29999999999999999" pos="-0.049999999999999996 0 0.075000000000000011" quat="1 0 1 0"/>
+                    <joint name="gripper/joint_right" class="gripper/" type="slide" pos="0 0 0.025000000000000001" axis="1 0 0" limited="true" range="0 0.044999999999999998" damping="1.0"/>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

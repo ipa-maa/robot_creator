@@ -1,0 +1,18 @@
+<mujoco model="gripper">
+  <default>
+    <default class="/"/>
+  </default>
+  <worldbody>
+    <body name="base">
+      <geom name="base" class="/" type="box" size="0.074999999999999997 0.025000000000000001 0.025000000000000001" rgba="1 1 0 0.29999999999999999" pos="0 0 0"/>
+      <body name="finger_left">
+        <geom name="finger_left" class="/" type="box" size="0.050000000000000003 0.025000000000000001 0.0050000000000000001" rgba="1 1 0 0.29999999999999999" pos="0.049999999999999996 0 0.075000000000000011" quat="1 0 -1 0"/>
+        <joint name="joint_left" class="/" type="slide" pos="0 0 0.025000000000000001" axis="1 0 0" limited="true" range="-0.044999999999999998 0" damping="1.0"/>
+      </body>
+      <body name="finger_right">
+        <geom name="finger_right" class="/" type="box" size="0.050000000000000003 0.025000000000000001 0.0050000000000000001" rgba="1 1 0 0.29999999999999999" pos="-0.049999999999999996 0 0.075000000000000011" quat="1 0 1 0"/>
+        <joint name="joint_right" class="/" type="slide" pos="0 0 0.025000000000000001" axis="1 0 0" limited="true" range="0 0.044999999999999998" damping="1.0"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>
